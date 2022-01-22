@@ -38,6 +38,8 @@ public class Interact : MonoBehaviour {
         if (_inspectingObject == null) _hasInteractableInCrosshair = CheckForInteractable(); // If not in inspect mode, check for interactables.
         else _hasInteractableInCrosshair = false;
 
+        if (!_hasInteractableInCrosshair) crosshairActive.SetActive(false);
+
         if (Input.GetKeyDown(KeyCode.E)) {
             if (_inspectingObject != null) { // If we are inspecting an object,
                 ExitInspectMode(); // stop inspecting.
@@ -69,8 +71,7 @@ public class Interact : MonoBehaviour {
                                                ((cameraToWorld.y * mainCanvasRect.sizeDelta.y) - (mainCanvasRect.sizeDelta.y * 0.5f)));
 
                 //Making sure it's forward (markRect is my UI Element's RectTransform)
-                if (cameraToWorld.z > 0)
-                    crosshairRect.anchoredPosition = WorldObject_ScreenPosition;
+                if (cameraToWorld.z > 0) crosshairRect.anchoredPosition = WorldObject_ScreenPosition;
                 return true;
             }
         }
@@ -84,14 +85,6 @@ public class Interact : MonoBehaviour {
     }
 
     private void TryInteract() {
-        if (_selectedInteractable.isInspectable) {
-            EnterInspectMode();
-        }
-        else if (_selectedInteractable.isInteractable) {
-            _selectedInteractable.Interact();
-
-
-        }
         if (_selectedInteractable.isInspectable) EnterInspectMode(); // First try for inspect.
         else if (_selectedInteractable.isInteractable) _selectedInteractable.Interact(); // If not inspectable, interact.
     }
@@ -137,7 +130,6 @@ public class Interact : MonoBehaviour {
             GetComponent<FirstPersonMovement>().canWalk = true;
             GetComponentInChildren<FirstPersonLook>().sensitivity = 2;
             crosshairIdle.SetActive(true);
-            crosshairActive.SetActive(true);
             _inspectingObject.transform.parent = inspectPosition.transform;
         }
     }
