@@ -7,10 +7,6 @@ public class Interactable : MonoBehaviour
     public bool isInteractable = true;
     public bool isInspectable = false;
     public bool hasBeenInteracted;
-    void Start()
-    {
-
-    }
 
     public virtual void Interact()
     {
