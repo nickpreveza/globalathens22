@@ -6,6 +6,8 @@ public class Teleport : MonoBehaviour {
     [SerializeField] FirstPersonMovement controller;
     public bool canTeleport = true;
     public GameObject vehicleParent;
+    public Material skybox0;
+    public Material skybox1;
     void Awake()
     {
         controller = GetComponent<FirstPersonMovement>();
@@ -16,7 +18,7 @@ public class Teleport : MonoBehaviour {
     {
         //requires a validate method
         if (Input.GetKeyDown(KeyCode.T) && canTeleport) {
-            TeleportPlayer();   
+            TeleportPlayer();
         }
     }
 
@@ -35,10 +37,11 @@ public class Teleport : MonoBehaviour {
                     transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - UniverseController.Instance.universeDistance);
                 }
 
+                RenderSettings.skybox = skybox1;
                 UniverseController.Instance.currentUniverse = 1;
                 break;
             case 1:
-              
+
                 if (controller.inVechile && vehicleParent != null)
                 {
                     GameObject targetGameObject = this.transform.parent.transform.parent.gameObject;
@@ -48,6 +51,7 @@ public class Teleport : MonoBehaviour {
                 {
                     transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + UniverseController.Instance.universeDistance);
                 }
+                RenderSettings.skybox = skybox0;
                 UniverseController.Instance.currentUniverse = 0;
                 break;
         }
