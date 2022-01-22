@@ -71,10 +71,15 @@ public class FirstPersonMovement : MonoBehaviour
         if (touchedGround)
         {
             vehicleTarget.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            this.gameObject.transform.position = boatDeport.position;
-            this.gameObject.transform.parent = null;
-            inVechile = false;
-            canWalk = true;
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                this.gameObject.transform.position = boatDeport.position;
+                this.gameObject.transform.parent = null;
+                inVechile = false;
+                canWalk = true;
+            }
+           
             //teleport player
             //remove vehicle controls
             return;
