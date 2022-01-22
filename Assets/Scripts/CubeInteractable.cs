@@ -16,12 +16,17 @@ public class CubeInteractable : Interactable
             return;
         }
         base.Interact();
-        this.GetComponent<MeshRenderer>().sharedMaterial.color = Color.white;
+        SuccessfulInteraction();
     }
 
     public override void ResetState()
     {
         base.ResetState();
         this.GetComponent<MeshRenderer>().sharedMaterial.color = Color.red;
+    }
+
+    private void SuccessfulInteraction() {
+        // Interactable action goes here.
+        this.GetComponent<MeshRenderer>().sharedMaterial.color = Color.white;
     }
 }
