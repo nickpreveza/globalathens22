@@ -17,6 +17,7 @@ public class FirstPersonMovement : MonoBehaviour
     public List<System.Func<float>> speedOverrides = new List<System.Func<float>>();
 
     [Header("Vehicle Controls")]
+    public bool touchedGround;
     [SerializeField] GameObject vehicleTarget;
     [SerializeField] float turnSpeed = 50f;
     [SerializeField] float vehicleVel = 0.0f;      // Current Travelling Velocity
@@ -26,6 +27,8 @@ public class FirstPersonMovement : MonoBehaviour
     [SerializeField] float vehicleMaxAcc = 1.0f;        // Max Acceleration
     [SerializeField] float vehicleMinAcc = -0.5f;       // Min Acceleration
     [SerializeField] float vehicleRotateSpeed = 1f;
+    [SerializeField] Transform boatPosition;
+    [SerializeField] Transform boatDeport;
     void Awake()
     {
         // Get the rigidbody on this.
@@ -65,6 +68,17 @@ public class FirstPersonMovement : MonoBehaviour
 
     void VehicleControls()
     {
+        if (touchedGround)
+        {
+            vehicleTarget.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            this.gameObject.transform.position = boatDeport.position;
+            this.gameObject.transform.parent = null;
+            inVechile = false;
+            canWalk = true;
+            //teleport player
+            //remove vehicle controls
+            return;
+        }
         vehicleAcceleration += Input.GetAxis("Vertical") * vehicleSpeed * Time.deltaTime;
         vehicleTarget.transform.Rotate(0.0f, Input.GetAxis("Horizontal") * vehicleRotateSpeed, 0.0f);
         
