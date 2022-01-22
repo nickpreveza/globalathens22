@@ -21,6 +21,10 @@ public class Interact : MonoBehaviour {
     private Transform _inspectingObjectStartParent;
     private Vector3 _inspectingObjectStartPosition;
     private Quaternion _inspectingObjectStartRotation;
+    private bool isInspecting = false;
+    public RectTransform mainCanvasRect;
+    public RectTransform crosshairRect;
+    private Interactable selectedInteractable;
     private GameObject _newParent;
 
     private void Start() {
@@ -58,6 +62,15 @@ public class Interact : MonoBehaviour {
                 {
                     _selectedInteractable = hitInfo.transform.gameObject.GetComponent<Interactable>();
                 }
+
+                cameraToWorld = Camera.main.WorldToViewportPoint(_selectedInteractable.transform.position);
+                Vector2 WorldObject_ScreenPosition = new Vector2(
+                                               ((cameraToWorld.x * mainCanvasRect.sizeDelta.x) - (mainCanvasRect.sizeDelta.x * 0.5f)),
+                                               ((cameraToWorld.y * mainCanvasRect.sizeDelta.y) - (mainCanvasRect.sizeDelta.y * 0.5f)));
+
+                //Making sure it's forward (markRect is my UI Element's RectTransform)
+                if (cameraToWorld.z > 0)
+                    crosshairRect.anchoredPosition = WorldObject_ScreenPosition;
                 return true;
             }
         }
@@ -71,6 +84,14 @@ public class Interact : MonoBehaviour {
     }
 
     private void TryInteract() {
+        if (_selectedInteractable.isInspectable) {
+            EnterInspectMode();
+        }
+        else if (_selectedInteractable.isInteractable) {
+            _selectedInteractable.Interact();
+
+
+        }
         if (_selectedInteractable.isInspectable) EnterInspectMode(); // First try for inspect.
         else if (_selectedInteractable.isInteractable) _selectedInteractable.Interact(); // If not inspectable, interact.
     }
