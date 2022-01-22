@@ -8,7 +8,9 @@ public class Interact : MonoBehaviour {
     public GameObject crosshairIdle;
     public GameObject crosshairActive;
     private bool _hasInteractableInCrosshair = false;
-    private float _maxDistance = 2f;
+
+    private const float MaxDistance = 2f;
+
     private Interactable _selectedInteractable;
 
     // Inspect:
@@ -38,7 +40,7 @@ public class Interact : MonoBehaviour {
 
     private bool CheckForInteractable() {
         var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f,0f));
-        if (Physics.Raycast(ray, out var hitInfo, _maxDistance)) {
+        if (Physics.Raycast(ray, out var hitInfo, MaxDistance)) {
             if (hitInfo.transform.gameObject.CompareTag("Interactable"))
             {
                 // Hit an interactable.
@@ -78,6 +80,7 @@ public class Interact : MonoBehaviour {
         _inspectingObjectStartPosition = _inspectingObject.transform.position;
         _inspectingObjectStartRotation = _inspectingObject.transform.rotation;
         GetComponent<FirstPersonMovement>().canWalk = false;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
         // TODO: Set camera to fixed.
         _inspectingObject.transform.parent = inspectPosition.transform;
         _inspectingObject.transform.position = inspectPosition.transform.position;
