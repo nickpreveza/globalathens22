@@ -787,9 +787,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1913844561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1736e4da1af4be841bfc720188af2821, type: 3}
+  m_Script: {fileID: 11500000, guid: d22bfb07f66b5f6498e4dc8de392a17f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInteractable: 1
+  hasBeenInteracted: 0
 --- !u!1 &2105008625
 GameObject:
   m_ObjectHideFlags: 0
