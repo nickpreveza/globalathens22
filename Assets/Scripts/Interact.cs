@@ -19,6 +19,20 @@ public class Interact : MonoBehaviour {
     private Transform _inspectingObjectStartParent;
     private Vector3 _inspectingObjectStartPosition;
     private Quaternion _inspectingObjectStartRotation;
+    private GameObject newParent;
+
+    private float _sensitivity = 0.4f;
+    private Vector3 _mouseReference;
+    private Vector3 _mouseOffset;
+    private Vector3 _rotation = Vector3.zero;
+    private bool _isRotating;
+
+    private void Start() {
+        newParent = new GameObject();
+        newParent.name = "RotateParent";
+        newParent.transform.parent = inspectPosition.transform;
+        newParent.transform.position = inspectPosition.transform.position;
+    }
 
     private void Update() {
         if (_inspectingObject == null) _hasInteractableInCrosshair = CheckForInteractable(); // If not in inspect mode, check for interactables.
@@ -72,44 +86,62 @@ public class Interact : MonoBehaviour {
 
     // Pick up.
     private void EnterInspectMode() {
-        Debug.Log("Inspect started");
+        GetComponent<FirstPersonMovement>().canRun = false;
+        GetComponent<FirstPersonMovement>().speed /= 2;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+
         _inspectingObject = _selectedInteractable.gameObject;
+
         _inspectingObjectStartParent = _inspectingObject.transform.parent;
         _inspectingObjectStartPosition = _inspectingObject.transform.position;
         _inspectingObjectStartRotation = _inspectingObject.transform.rotation;
-        GetComponent<FirstPersonMovement>().canWalk = false;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        // TODO: Set camera to fixed.
+
         _inspectingObject.transform.parent = inspectPosition.transform;
         _inspectingObject.transform.position = inspectPosition.transform.position;
         _inspectingObject.transform.rotation = inspectPosition.transform.rotation;
     }
 
     private void OnInspectMode() {
-        const float rotationSpeed = 100f;
+        var rotationSpeed = 100f;
         // Mouse down.
         if (Input.GetMouseButtonDown(0)) {
+            GetComponent<FirstPersonMovement>().canWalk = false;
+            GetComponentInChildren<FirstPersonLook>().sensitivity = 0;
             crosshairIdle.SetActive(false);
             crosshairActive.SetActive(false);
-            GetComponentInChildren<FirstPersonLook>().sensitivity = 0;
+            newParent.transform.rotation = transform.rotation;
+
+            // rotating flag
+            _isRotating = true;
+            // store mouse
+            _mouseReference = Input.mousePosition;
         }
         // Mouse hold.
         else if (Input.GetMouseButton(0)) {
-            _inspectingObject.transform.Rotate((Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime), (Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime), 0, Space.World);
+            _inspectingObject.transform.parent = newParent.transform;
+            var xAngle = (Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime);
+            var yAngle = (-Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime); // this is correct
+            var zAngle = 0f;
+            _inspectingObject.transform.parent.Rotate(xAngle,yAngle, zAngle, Space.Self);
         }
         // Mouse up.
         else if (Input.GetMouseButtonUp(0)) {
+            GetComponent<FirstPersonMovement>().canWalk = true;
+            GetComponentInChildren<FirstPersonLook>().sensitivity = 2;
             crosshairIdle.SetActive(true);
             crosshairActive.SetActive(true);
-            GetComponentInChildren<FirstPersonLook>().sensitivity = 2;
+            _inspectingObject.transform.parent = inspectPosition.transform;
+
+
+            // rotating flag
+            _isRotating = false;
         }
     }
 
     // Put down.
     private void ExitInspectMode() {
-        Debug.Log("Inspect quit");
-        GetComponent<FirstPersonMovement>().canWalk = true;
-        // TODO: Set camera to fixed.
+        GetComponent<FirstPersonMovement>().speed *= 2;
+        GetComponent<FirstPersonMovement>().canRun = true;
         _inspectingObject.transform.parent = _inspectingObjectStartParent;
         _inspectingObject.transform.position = _inspectingObjectStartPosition;
         _inspectingObject.transform.rotation = _inspectingObjectStartRotation;
