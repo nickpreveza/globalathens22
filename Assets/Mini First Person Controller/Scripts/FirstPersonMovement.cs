@@ -15,10 +15,17 @@ public class FirstPersonMovement : MonoBehaviour
     Rigidbody rigidbody;
     /// <summary> Functions to override movement speed. Will use the last added override. </summary>
     public List<System.Func<float>> speedOverrides = new List<System.Func<float>>();
+
+    [Header("Vehicle Controls")]
     [SerializeField] GameObject vehicleTarget;
-    Vector2 vehicleVelocity;
-    [SerializeField] float vehicleSpeed;
-    [SerializeField] float vehicleRotateSpeed;
+    [SerializeField] float turnSpeed = 50f;
+    [SerializeField] float vehicleVel = 0.0f;      // Current Travelling Velocity
+    [SerializeField] float vehicleMaxVel = 1.0f;   // Max Velocity
+    [SerializeField] float vehicleAcceleration = 0.0f;           // Current Acceleration
+    [SerializeField] float vehicleSpeed = 0.1f;      // Amount to increase Acceleration with.
+    [SerializeField] float vehicleMaxAcc = 1.0f;        // Max Acceleration
+    [SerializeField] float vehicleMinAcc = -0.5f;       // Min Acceleration
+    [SerializeField] float vehicleRotateSpeed = 1f;
     void Awake()
     {
         // Get the rigidbody on this.
@@ -27,23 +34,11 @@ public class FirstPersonMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        
-
+     
         if (inVechile && vehicleTarget != null)
         {
-            vehicleVelocity.x = Input.GetAxis("Horizontal") * vehicleSpeed;
-            vehicleVelocity.y = Input.GetAxis("Vertical") * vehicleSpeed;
-
-            // Apply movement.
-            /*
-            if (vehicleVelocity.y == 0 && vehicleVelocity.x > 0)
-            {
-                vehicleVelocity.y = 1 * vehicleSpeed;
-            }
-            vehicleTarget.GetComponent<Rigidbody>().velocity = transform.rotation * new Vector3(vehicleVelocity.x, rigidbody.velocity.y, vehicleVelocity.y);
-            */
-            vehicleTarget.GetComponent<Rigidbody>().velocity = vehicleTarget.transform.rotation * new Vector3(0, 0, vehicleVelocity.y);
-            vehicleTarget.transform.Rotate(0.0f, Input.GetAxis("Horizontal") * vehicleRotateSpeed, 0.0f);
+            VehicleControls();
+           
             return;
         }
 
@@ -66,5 +61,28 @@ public class FirstPersonMovement : MonoBehaviour
 
         // Apply movement.
         rigidbody.velocity = transform.rotation * new Vector3(targetVelocity.x, rigidbody.velocity.y, targetVelocity.y);
+    }
+
+    void VehicleControls()
+    {
+        vehicleAcceleration += Input.GetAxis("Vertical") * vehicleSpeed * Time.deltaTime;
+        vehicleTarget.transform.Rotate(0.0f, Input.GetAxis("Horizontal") * vehicleRotateSpeed, 0.0f);
+        
+        
+        if (vehicleAcceleration > vehicleMaxAcc)
+            vehicleAcceleration = vehicleMaxAcc;
+        else if (vehicleAcceleration < vehicleMinAcc)
+            vehicleAcceleration = vehicleMinAcc;
+
+        vehicleVel += vehicleAcceleration;
+
+        if (vehicleVel > vehicleMaxVel)
+            vehicleVel = vehicleMaxVel;
+        else if (vehicleVel < -vehicleMaxVel)
+            vehicleVel = -vehicleMaxVel;
+
+        vehicleTarget.transform.Translate(Vector3.forward * vehicleVel * Time.deltaTime);
+
+
     }
 }
