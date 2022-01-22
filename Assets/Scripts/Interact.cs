@@ -31,8 +31,8 @@ public class Interact : MonoBehaviour {
                 {
                     selectedInteractable = hitInfo.transform.gameObject.GetComponent<Interactable>();
                 }
-              
-               
+
+
                 return true;
             }
         }
@@ -53,8 +53,5 @@ public class Interact : MonoBehaviour {
         }
 
         selectedInteractable.Interact();
-
-        var ray = new Ray();
-        ray = Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f,0f));
     }
 }
