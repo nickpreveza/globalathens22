@@ -6,6 +6,7 @@ public class Interactable : MonoBehaviour
 {
     public bool isInteractable = true;
     public bool isInspectable = false;
+    public bool highlighted;
     public bool hasBeenInteracted;
 
     public virtual void Interact()

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class FirstPersonMovement : MonoBehaviour
 {
+    public static FirstPersonMovement Instance;
     public float speed = 5;
     public bool canWalk = true;
     [Header("Running")]
@@ -31,6 +32,7 @@ public class FirstPersonMovement : MonoBehaviour
     [SerializeField] Transform boatDeport;
     void Awake()
     {
+        Instance = this;
         // Get the rigidbody on this.
         rigidbody = GetComponent<Rigidbody>();
     }
@@ -64,6 +66,24 @@ public class FirstPersonMovement : MonoBehaviour
 
         // Apply movement.
         rigidbody.velocity = transform.rotation * new Vector3(targetVelocity.x, rigidbody.velocity.y, targetVelocity.y);
+    }
+
+    public void Respawn(bool isInVehicle, Transform newPos)
+    {
+        if (isInVehicle != inVechile)
+        {
+            inVechile = isInVehicle;
+            canWalk = !inVechile;
+        }
+        if (isInVehicle)
+        {
+            vehicleTarget.transform.position = newPos.position;
+        }
+        else
+        {
+            this.transform.position = newPos.position;
+        }
+      
     }
 
     void VehicleControls()

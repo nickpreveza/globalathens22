@@ -13,6 +13,8 @@ public class Interact : MonoBehaviour {
 
     // Inspect:
     public GameObject inspectPosition;
+    private Transform inspectableObjectStartTransform;
+    Vector3 cameraToWorld;
     private GameObject _inspectingObject;
     private Transform _inspectingObjectStartParent;
     private Vector3 _inspectingObjectStartPosition;
