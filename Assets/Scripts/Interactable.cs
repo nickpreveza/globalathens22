@@ -5,6 +5,7 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     public bool isInteractable = true;
+    public bool isInspectable = false;
     public bool hasBeenInteracted;
     void Start()
     {
@@ -13,7 +14,6 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact()
     {
-        
         hasBeenInteracted = true;
     }
 

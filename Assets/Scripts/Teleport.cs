@@ -10,7 +10,6 @@ public class Teleport : MonoBehaviour {
     void Awake()
     {
         controller = GetComponent<FirstPersonMovement>();
-        vehicleParent = transform.parent.transform.parent.gameObject;
     }
 
     // Update is called once per frame
@@ -18,7 +17,7 @@ public class Teleport : MonoBehaviour {
     {
         //requires a validate method
         if (Input.GetKeyDown(KeyCode.T) && canTeleport) {
-            TeleportPlayer();   
+            TeleportPlayer();
         }
     }
 
@@ -36,11 +35,11 @@ public class Teleport : MonoBehaviour {
                 {
                     transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 200);
                 }
-              
+
                 _currentUniverse = 1;
                 break;
             case 1:
-              
+
                 if (controller.inVechile)
                 {
                     GameObject targetGameObject = this.transform.parent.transform.parent.gameObject;
