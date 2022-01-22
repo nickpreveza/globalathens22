@@ -8,7 +8,7 @@ public class Interactable : MonoBehaviour
     public bool isInspectable = false;
     public bool highlighted;
     public bool hasBeenInteracted;
-
+    public bool isConsumable;
     public virtual void Interact()
     {
         hasBeenInteracted = true;
