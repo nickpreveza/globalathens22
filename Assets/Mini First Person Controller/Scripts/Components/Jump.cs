@@ -2,6 +2,7 @@
 
 public class Jump : MonoBehaviour
 {
+    FirstPersonMovement controller;
     Rigidbody rigidbody;
     public float jumpStrength = 2;
     public event System.Action Jumped;
@@ -20,10 +21,15 @@ public class Jump : MonoBehaviour
     {
         // Get rigidbody.
         rigidbody = GetComponent<Rigidbody>();
+        controller = GetComponent<FirstPersonMovement>();
     }
 
     void LateUpdate()
     {
+        if (controller.inVechile)
+        {
+            return;
+        }
         // Jump when the Jump button is pressed and we are on the ground.
         if (Input.GetButtonDown("Jump") && (!groundCheck || groundCheck.isGrounded))
         {

@@ -6,7 +6,7 @@ public class Crouch : MonoBehaviour
 
     [Header("Slow Movement")]
     [Tooltip("Movement to slow down when crouched.")]
-    public FirstPersonMovement movement;
+    public FirstPersonMovement controller;
     [Tooltip("Movement speed when crouched.")]
     public float movementSpeed = 2;
 
@@ -29,13 +29,17 @@ public class Crouch : MonoBehaviour
     void Reset()
     {
         // Try to get components.
-        movement = GetComponentInParent<FirstPersonMovement>();
-        headToLower = movement.GetComponentInChildren<Camera>().transform;
-        colliderToLower = movement.GetComponentInChildren<CapsuleCollider>();
+        controller = GetComponent<FirstPersonMovement>();
+        headToLower = controller.GetComponentInChildren<Camera>().transform;
+        colliderToLower = controller.GetComponentInChildren<CapsuleCollider>();
     }
 
     void LateUpdate()
     {
+        if (controller.inVechile)
+        {
+            return;
+        }
         if (Input.GetKey(key))
         {
             // Enforce a low head.
@@ -114,7 +118,7 @@ public class Crouch : MonoBehaviour
     void SetSpeedOverrideActive(bool state)
     {
         // Stop if there is no movement component.
-        if(!movement)
+        if(!controller)
         {
             return;
         }
@@ -123,17 +127,17 @@ public class Crouch : MonoBehaviour
         if (state)
         {
             // Try to add the SpeedOverride to the movement component.
-            if (!movement.speedOverrides.Contains(SpeedOverride))
+            if (!controller.speedOverrides.Contains(SpeedOverride))
             {
-                movement.speedOverrides.Add(SpeedOverride);
+                controller.speedOverrides.Add(SpeedOverride);
             }
         }
         else
         {
             // Try to remove the SpeedOverride from the movement component.
-            if (movement.speedOverrides.Contains(SpeedOverride))
+            if (controller.speedOverrides.Contains(SpeedOverride))
             {
-                movement.speedOverrides.Remove(SpeedOverride);
+                controller.speedOverrides.Remove(SpeedOverride);
             }
         }
     }
