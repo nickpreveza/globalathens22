@@ -50,7 +50,7 @@ public class Interact : MonoBehaviour {
     }
 
     private void TryInteract() {
-        if (selectedInteractable != null)
+        if (selectedInteractable == null)
         {
             return;
         }
