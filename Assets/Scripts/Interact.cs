@@ -19,19 +19,13 @@ public class Interact : MonoBehaviour {
     private Transform _inspectingObjectStartParent;
     private Vector3 _inspectingObjectStartPosition;
     private Quaternion _inspectingObjectStartRotation;
-    private GameObject newParent;
-
-    private float _sensitivity = 0.4f;
-    private Vector3 _mouseReference;
-    private Vector3 _mouseOffset;
-    private Vector3 _rotation = Vector3.zero;
-    private bool _isRotating;
+    private GameObject _newParent;
 
     private void Start() {
-        newParent = new GameObject();
-        newParent.name = "RotateParent";
-        newParent.transform.parent = inspectPosition.transform;
-        newParent.transform.position = inspectPosition.transform.position;
+        _newParent = new GameObject();
+        _newParent.name = "RotateParent";
+        _newParent.transform.parent = inspectPosition.transform;
+        _newParent.transform.position = inspectPosition.transform.position;
     }
 
     private void Update() {
@@ -69,19 +63,14 @@ public class Interact : MonoBehaviour {
             // Nothing interactable found.
             _selectedInteractable = null;
             crosshairActive.SetActive(false);
-            return false;
         }
 
         return false;
     }
 
     private void TryInteract() {
-        if (_selectedInteractable.isInspectable) {
-            EnterInspectMode();
-        }
-        else if (_selectedInteractable.isInteractable) {
-            _selectedInteractable.Interact();
-        }
+        if (_selectedInteractable.isInspectable) EnterInspectMode(); // First try for inspect.
+        else if (_selectedInteractable.isInteractable) _selectedInteractable.Interact(); // If not inspectable, interact.
     }
 
     // Pick up.
@@ -101,40 +90,32 @@ public class Interact : MonoBehaviour {
         _inspectingObject.transform.rotation = inspectPosition.transform.rotation;
     }
 
+    // Holding.
     private void OnInspectMode() {
         var rotationSpeed = 100f;
-        // Mouse down.
+        // Left click down.
         if (Input.GetMouseButtonDown(0)) {
             GetComponent<FirstPersonMovement>().canWalk = false;
             GetComponentInChildren<FirstPersonLook>().sensitivity = 0;
             crosshairIdle.SetActive(false);
             crosshairActive.SetActive(false);
-            newParent.transform.rotation = transform.rotation;
-
-            // rotating flag
-            _isRotating = true;
-            // store mouse
-            _mouseReference = Input.mousePosition;
+            _newParent.transform.rotation = transform.rotation;
         }
-        // Mouse hold.
+        // Left click hold.
         else if (Input.GetMouseButton(0)) {
-            _inspectingObject.transform.parent = newParent.transform;
+            _inspectingObject.transform.parent = _newParent.transform;
             var xAngle = (Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime);
             var yAngle = (-Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime); // this is correct
             var zAngle = 0f;
             _inspectingObject.transform.parent.Rotate(xAngle,yAngle, zAngle, Space.Self);
         }
-        // Mouse up.
+        // Left click up.
         else if (Input.GetMouseButtonUp(0)) {
             GetComponent<FirstPersonMovement>().canWalk = true;
             GetComponentInChildren<FirstPersonLook>().sensitivity = 2;
             crosshairIdle.SetActive(true);
             crosshairActive.SetActive(true);
             _inspectingObject.transform.parent = inspectPosition.transform;
-
-
-            // rotating flag
-            _isRotating = false;
         }
     }
 
