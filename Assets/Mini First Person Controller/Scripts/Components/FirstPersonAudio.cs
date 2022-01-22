@@ -64,6 +64,10 @@ public class FirstPersonAudio : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (character.inVechile)
+        {
+            return;
+        }
         // Play moving audio if the character is moving and on the ground.
         float velocity = Vector3.Distance(CurrentCharacterPosition, lastCharacterPosition);
         if (velocity >= velocityThreshold && groundCheck && groundCheck.isGrounded)
