@@ -6,6 +6,9 @@ using UnityEngine;
 public class Interact : MonoBehaviour {
     public GameObject crosshairIdle;
     public GameObject crosshairActive;
+    public GameObject inspectPosition;
+    private Transform inspectableObjectStartTransform;
+    private bool isInspecting = false;
 
     private float _maxDistance = 2f;
     private Interactable selectedInteractable;
@@ -51,7 +54,30 @@ public class Interact : MonoBehaviour {
         {
             return;
         }
-
         selectedInteractable.Interact();
+
+        if (selectedInteractable.isInspectable && !isInspecting) EnterInspectMode(selectedInteractable.gameObject);
+        else if (isInspecting) ExitInspectMode(selectedInteractable.gameObject);
+    }
+
+    // Pick up.
+    private void EnterInspectMode(GameObject inspectableObject) {
+        isInspecting = true;
+        GetComponent<FirstPersonMovement>().canWalk = false;
+        // TODO: Set camera looking forward.
+        inspectableObjectStartTransform = inspectableObject.transform;
+        inspectableObject.transform.parent = inspectPosition.transform;
+        inspectableObject.transform.position = inspectPosition.transform.position;
+        inspectableObject.transform.rotation = inspectPosition.transform.rotation;
+    }
+
+    // Put down.
+    private void ExitInspectMode(GameObject inspectableObject) {
+        isInspecting = false;
+        GetComponent<FirstPersonMovement>().canWalk = true;
+        // TODO: Set camera looking forward.
+        inspectableObject.transform.parent = inspectableObjectStartTransform.parent;
+        inspectableObject.transform.position = inspectableObjectStartTransform.position;
+        inspectableObject.transform.rotation = inspectableObjectStartTransform.rotation;
     }
 }
