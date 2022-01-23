@@ -37,7 +37,9 @@ public class ChestInteractable : Interactable
 
     private void SuccessfulInteraction()
     {
+        isInteractable = false;
         chestAnimator.SetTrigger("Open");
+        UIManager.Instance.OpenPopup("Trinket Unlocked");
         GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlayChestOpen();
         GameManager.Instance.playerController.GetComponent<Teleport>().SetTeleportState(true);
     }

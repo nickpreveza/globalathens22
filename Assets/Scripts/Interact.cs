@@ -59,14 +59,20 @@ public class Interact : MonoBehaviour {
             //Debug.Log("Looking at: " + hitInfo.collider.transform.gameObject.name);
             if (hitInfo.collider.transform.gameObject.CompareTag("Interactable"))
             {
+              
                 // Hit an interactable.
-                crosshairActive.SetActive(true);
+              
 
                 if (_selectedInteractable == null || _selectedInteractable.gameObject != hitInfo.collider.transform.gameObject)
                 {
                     _selectedInteractable = hitInfo.collider.transform.gameObject.GetComponent<Interactable>();
                 }
+                if (!_selectedInteractable.isInteractable)
+                {
+                    return false;
+                }
 
+                    crosshairActive.SetActive(true);
                 cameraToWorld = Camera.main.WorldToViewportPoint(_selectedInteractable.transform.position);
                 Vector2 WorldObject_ScreenPosition = new Vector2(
                                                ((cameraToWorld.x * mainCanvasRect.sizeDelta.x) - (mainCanvasRect.sizeDelta.x * 0.5f)),
