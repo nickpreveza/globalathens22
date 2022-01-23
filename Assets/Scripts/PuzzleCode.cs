@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PuzzleCode : MonoBehaviour {
-    
+
     [Range(1,4)]
     public int slot1;
     [Range(1, 4)]
@@ -13,6 +13,14 @@ public class PuzzleCode : MonoBehaviour {
     public int slot3;
     [Range(1, 4)]
     public int slot4;
+    [Range(1, 4)]
+    public int slot5;
+    [Range(1, 4)]
+    public int slot6;
+    [Range(1, 4)]
+    public int slot7;
+    [Range(1, 4)]
+    public int slot8;
     public GameObject Glyph1, Glyph2, Glyph3, Glyph4;
     // Start is called before the first frame update
     private bool isPuzzleReady = false;
@@ -23,12 +31,16 @@ public class PuzzleCode : MonoBehaviour {
     int currentPointer = 0;
     private void Start()
     {
-        solution = new int[4];
+        solution = new int[8];
 
         solution[0] = slot1;
         solution[1] = slot2;
         solution[2] = slot3;
         solution[3] = slot4;
+        solution[4] = slot5;
+        solution[5] = slot6;
+        solution[6] = slot7;
+        solution[7] = slot8;
     }
     private void CheckIfPuzzleReady() {
         if (Glyph1.activeSelf && Glyph2.activeSelf && Glyph3.activeSelf && Glyph4.activeSelf) {
@@ -87,7 +99,7 @@ public class PuzzleCode : MonoBehaviour {
         }
     }
 
-  
+
 
     private void AddToSequence(int number) {
         if (number == solution[currentPointer]) {
