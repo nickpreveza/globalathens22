@@ -33,7 +33,7 @@ public class ButtonInteractable : Interactable
         startPosition = transform.position;
         pressedPosition = new Vector3(transform.position.x, transform.position.y - 0.1f, transform.position.z);
         StartCoroutine(ButtonAnimation());
-        GetComponentInParent<Puzzle1>().OnGlyphPressed(gameObject.name);
+        GetComponentInParent<PuzzleCode>().OnGlyphPressed(gameObject.name);
     }
 
     private IEnumerator ButtonAnimation() {

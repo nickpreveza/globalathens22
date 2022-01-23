@@ -19,5 +19,9 @@ public class Interactable : MonoBehaviour
         hasBeenInteracted = false;
     }
 
+    public virtual void TriggerPuzzleSolution()
+    {
+
+    }
 
 }

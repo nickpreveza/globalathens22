@@ -30,4 +30,10 @@ public class DoorInteractable : Interactable
         gameObject.SetActive(false);
 
     }
+
+    public override void TriggerPuzzleSolution()
+    {
+        base.TriggerPuzzleSolution();
+        SuccessfulInteraction();
+    }
 }
