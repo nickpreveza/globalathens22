@@ -28,6 +28,7 @@ public class Interact : MonoBehaviour {
     private Interactable selectedInteractable;
     private GameObject _newParent;
 
+    bool hasHelpedWithPuzzle;
     private void Start() {
         _newParent = new GameObject();
         _newParent.name = "RotateParent";
@@ -60,6 +61,11 @@ public class Interact : MonoBehaviour {
             if (hitInfo.collider.transform.gameObject.CompareTag("Interactable"))
             {
               
+                if (!UIManager.Instance.hasHelpedWithInteract)
+                {
+                    UIManager.Instance.hasHelpedWithInteract = true;
+                    UIManager.Instance.SendHelp("PRESS 'E' TO INTERACT");
+                }
                 // Hit an interactable.
               
 

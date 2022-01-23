@@ -11,6 +11,7 @@ public class BoatCollisionCheck : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             controller.touchedGround = true;
+            UIManager.Instance.SendHelp("PRESS 'E' TO LEAVE THE BOAT");
         }
     }
 }

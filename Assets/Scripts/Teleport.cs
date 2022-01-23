@@ -22,7 +22,7 @@ public class Teleport : MonoBehaviour {
     {
         canTeleport = enabled;
         trinket.SetActive(canTeleport);
-
+        UIManager.Instance.SendHelp("USE TELEPORT WITH 'T' ");
     }
     // Update is called once per frame
     void Update()

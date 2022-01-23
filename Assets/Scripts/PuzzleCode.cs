@@ -51,6 +51,7 @@ public class PuzzleCode : MonoBehaviour {
                 UIManager.Instance.OpenPopup("DOORS UNLOCKED");
                 door1.SetTrigger("Open");
                 door2.SetTrigger("Open");
+                Invoke("PuzzleHelp", 3);
             }
            
         }
@@ -58,6 +59,11 @@ public class PuzzleCode : MonoBehaviour {
         if (isPuzzleReady) {
             triggerCollider.enabled = false;
         }
+    }
+
+    void PuzzleHelp()
+    {
+        UIManager.Instance.SendHelp("Press the Glyphs to Input the Code");
     }
 
     private void OnTriggerEnter(Collider other) {

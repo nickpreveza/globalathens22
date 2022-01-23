@@ -13,7 +13,9 @@ public class UIManager : MonoBehaviour
     public Animator popupAnimator;
     public GameObject pauseObject;
     public GameObject endScreen;
+    public TextMeshProUGUI helpScreen;
 
+    public bool hasHelpedWithInteract;
     private void Awake()
     {
         Instance = this;
@@ -24,6 +26,7 @@ public class UIManager : MonoBehaviour
         popupObject.SetActive(false);
         pauseObject.SetActive(false);
         endScreen.SetActive(false);
+        helpScreen.text = "";
     }
 
     public void OpenPopup(string _text)
@@ -32,6 +35,17 @@ public class UIManager : MonoBehaviour
         popupObject.SetActive(true);
         Invoke("ClosePopup", 2);
         StartCoroutine(ClosePopup());
+    }
+
+    public void SendHelp(string _text)
+    {
+        helpScreen.text = _text;
+        StartCoroutine(CloseHelp());
+    }
+    public IEnumerator CloseHelp()
+    {
+        yield return new WaitForSeconds(2f);
+        helpScreen.text = "";
     }
 
     public IEnumerator ClosePopup()

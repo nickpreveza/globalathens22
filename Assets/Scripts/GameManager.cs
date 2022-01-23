@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public FirstPersonMovement playerController;
     public bool devMode;
-    public bool GodMode;
     [SerializeField] Transform lighthouseSpawn;
     public bool isPaused = false;
 
@@ -20,12 +19,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (devMode)
         {
-           // FirstPersonMovement.Instance.Respawn(false, lighthouseSpawn);
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                FirstPersonMovement.Instance.Respawn(false, lighthouseSpawn);
+            }
         }
+      
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) ||  Input.GetKeyDown(KeyCode.Escape))
         {
             UIManager.Instance.PauseToggle();
         }
