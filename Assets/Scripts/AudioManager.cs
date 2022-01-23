@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
+    public AudioClip Ambience1;
+    public AudioClip Ambience2;
     public AudioClip TrinketOn;
     public AudioClip Transition;
     public AudioClip ChestOpen;
@@ -12,9 +15,13 @@ public class AudioManager : MonoBehaviour {
     public AudioClip ButtonPressed3;
     public AudioClip ButtonPressed4;
     public AudioClip ButtonUnpressed;
+    private AudioSource _ambienceSource;
 
-    public void Update() {
-
+    public void Start() {
+        _ambienceSource = gameObject.AddComponent<AudioSource>(); // ambience
+        _ambienceSource.loop = true;
+        _ambienceSource.clip = Ambience1;
+        _ambienceSource.Play();
     }
 
     public void PlayTrinket() {
@@ -73,5 +80,15 @@ public class AudioManager : MonoBehaviour {
         newSound.GetComponent<AudioSource>().PlayOneShot(ButtonPressed2, 0.7f);
         newSound.GetComponent<AudioSource>().PlayOneShot(ButtonPressed3, 0.7f);
         newSound.GetComponent<AudioSource>().PlayOneShot(ButtonPressed4, 0.7f);
+    }
+
+    public void ChangeAmbienceTo1() {
+        _ambienceSource.clip = Ambience1;
+        _ambienceSource.Play();
+    }
+
+    public void ChangeAmbienceTo2() {
+        _ambienceSource.clip = Ambience2;
+        _ambienceSource.Play();
     }
 }
