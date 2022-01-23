@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2236440769539062796}
   - component: {fileID: 2236440769538051254}
   - component: {fileID: 2301210100204608820}
-  - component: {fileID: 2236440769213074348}
+  - component: {fileID: 5488220296100655194}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2236440769540000598}
-  m_LocalRotation: {x: -0, y: 0.6375352, z: -0, w: 0.77042127}
+  m_LocalRotation: {x: 0, y: 0.6375383, z: 0, w: 0.77041864}
   m_LocalPosition: {x: 26.53, y: 1.4041414, z: -24.21}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
@@ -98,7 +98,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43231211540474392, guid: a98b0911cdf30a04c95f397995c4bf98, type: 2}
---- !u!114 &2236440769213074348
+--- !u!114 &5488220296100655194
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2236440769540000598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d22bfb07f66b5f6498e4dc8de392a17f, type: 3}
+  m_Script: {fileID: 11500000, guid: d0091d551d339a6408973d210eb873ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isInteractable: 1

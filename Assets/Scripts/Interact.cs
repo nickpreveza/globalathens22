@@ -94,7 +94,7 @@ public class Interact : MonoBehaviour {
     // Pick up.
     private void EnterInspectMode() {
         GetComponent<FirstPersonMovement>().canRun = false;
-        GetComponent<FirstPersonMovement>().speed /= 2;
+       // GetComponent<FirstPersonMovement>().speed /= 2;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         _inspectingObject = _selectedInteractable.gameObject;
@@ -139,7 +139,7 @@ public class Interact : MonoBehaviour {
 
     // Put down.
     public void ExitInspectMode() {
-        GetComponent<FirstPersonMovement>().speed *= 2;
+        //GetComponent<FirstPersonMovement>().speed *= 2;
         GetComponent<FirstPersonMovement>().canRun = true;
         _inspectingObject.transform.parent = _inspectingObjectStartParent;
         _inspectingObject.transform.position = _inspectingObjectStartPosition;
