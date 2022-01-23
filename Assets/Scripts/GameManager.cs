@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public bool devMode;
     public bool GodMode;
     [SerializeField] Transform lighthouseSpawn;
+    public bool isPaused = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -22,6 +23,11 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             FirstPersonMovement.Instance.Respawn(false, lighthouseSpawn);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            UIManager.Instance.PauseToggle();
         }
     }
 }

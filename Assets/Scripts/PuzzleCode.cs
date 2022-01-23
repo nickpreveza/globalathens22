@@ -122,5 +122,6 @@ public class PuzzleCode : MonoBehaviour {
         Glyph4.transform.position = new Vector3(Glyph4.transform.position.x, Glyph4.transform.position.y - 0.15f, Glyph4.transform.position.z);
         // Open door.
         interactableToTriggerSolution.TriggerPuzzleSolution();
+        UIManager.Instance.OpenPopup("Puzzle Solved");
     }
 }

@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI popupText;
     public GameObject popupObject;
     public Animator popupAnimator;
-
+    public GameObject pauseObject;
     private void Awake()
     {
         Instance = this;
@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         popupObject.SetActive(false);
+        pauseObject.SetActive(false);
     }
 
     public void OpenPopup(string _text)
@@ -36,5 +37,22 @@ public class UIManager : MonoBehaviour
         popupAnimator.SetTrigger("Fade");
         yield return new WaitForSeconds(0.4f);
         popupObject.SetActive(false);
+    }
+
+    public void PauseToggle()
+    {
+        if (GameManager.Instance.isPaused)
+        {
+            GameManager.Instance.isPaused = false;
+            pauseObject.SetActive(false);
+            Time.timeScale = 1;
+        }
+        else
+        {
+            GameManager.Instance.isPaused = true;
+            pauseObject.SetActive(true);
+            Time.timeScale = 0;
+
+        }
     }
 }
