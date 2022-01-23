@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public Animator popupAnimator;
     public GameObject pauseObject;
     public GameObject endScreen;
+
     private void Awake()
     {
         Instance = this;

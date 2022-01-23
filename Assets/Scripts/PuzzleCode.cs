@@ -26,7 +26,8 @@ public class PuzzleCode : MonoBehaviour {
     private bool isPuzzleReady = false;
     public Collider triggerCollider;
     public Interactable interactableToTriggerSolution;
-
+    public Animator door1;
+    public Animator door2;
     int[] solution;
     int currentPointer = 0;
     private void Start()
@@ -44,7 +45,14 @@ public class PuzzleCode : MonoBehaviour {
     }
     private void CheckIfPuzzleReady() {
         if (Glyph1.activeSelf && Glyph2.activeSelf && Glyph3.activeSelf && Glyph4.activeSelf) {
-            isPuzzleReady = true;
+            if (isPuzzleReady != true)
+            {
+                isPuzzleReady = true;
+                UIManager.Instance.OpenPopup("DOORS UNLOCKED");
+                door1.SetTrigger("Open");
+                door2.SetTrigger("Open");
+            }
+           
         }
 
         if (isPuzzleReady) {

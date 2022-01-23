@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            FirstPersonMovement.Instance.Respawn(false, lighthouseSpawn);
+           // FirstPersonMovement.Instance.Respawn(false, lighthouseSpawn);
         }
 
         if (Input.GetKeyDown(KeyCode.P))
