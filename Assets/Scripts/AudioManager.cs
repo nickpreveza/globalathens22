@@ -7,6 +7,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour {
     public AudioClip Ambience1;
     public AudioClip Ambience2;
+    public AudioClip Waves;
     public AudioClip TrinketOn;
     public AudioClip Transition;
     public AudioClip ChestOpen;
@@ -16,12 +17,18 @@ public class AudioManager : MonoBehaviour {
     public AudioClip ButtonPressed4;
     public AudioClip ButtonUnpressed;
     private AudioSource _ambienceSource;
+    private AudioSource _coastWavesSource;
 
     public void Start() {
         _ambienceSource = gameObject.AddComponent<AudioSource>(); // ambience
         _ambienceSource.loop = true;
         _ambienceSource.clip = Ambience1;
         _ambienceSource.Play();
+
+        _coastWavesSource = gameObject.AddComponent<AudioSource>(); // sea
+        _coastWavesSource.loop = true;
+        _coastWavesSource.clip = Waves;
+        _coastWavesSource.Play();
     }
 
     public void PlayTrinket() {
