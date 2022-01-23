@@ -6,6 +6,9 @@ public class Teleport : MonoBehaviour {
     [SerializeField] FirstPersonMovement controller;
     public bool canTeleport = true;
     public GameObject vehicleParent;
+    [SerializeField] Animator handsAnimator;
+    [SerializeField] float chargeTime;
+    [SerializeField] float cooldown;
     void Awake()
     {
         controller = GetComponent<FirstPersonMovement>();
@@ -16,15 +19,18 @@ public class Teleport : MonoBehaviour {
     {
         //requires a validate method
         if (Input.GetKeyDown(KeyCode.T) && canTeleport) {
-            TeleportPlayer();
+            StartCoroutine(TeleportPlayer());
         }
     }
 
-    void TeleportPlayer()
+    IEnumerator TeleportPlayer()
     {
+        canTeleport = false;
         switch (UniverseController.Instance.currentUniverse)
         {
             case 0:
+                handsAnimator.SetTrigger("ChangeToInu");
+                yield return new WaitForSeconds(chargeTime);
                 if (controller.inVechile && vehicleParent != null)
                 {
 
@@ -37,9 +43,12 @@ public class Teleport : MonoBehaviour {
 
                 RenderSettings.skybox = UniverseController.Instance.skybox1;
                 UniverseController.Instance.currentUniverse = 1;
+                yield return new WaitForSeconds(cooldown);
+                canTeleport = true;
                 break;
             case 1:
-
+                handsAnimator.SetTrigger("ChangeToAki");
+                yield return new WaitForSeconds(chargeTime);
                 if (controller.inVechile && vehicleParent != null)
                 {
                     GameObject targetGameObject = this.transform.parent.transform.parent.gameObject;
@@ -51,6 +60,8 @@ public class Teleport : MonoBehaviour {
                 }
                 RenderSettings.skybox = UniverseController.Instance.skybox0;
                 UniverseController.Instance.currentUniverse = 0;
+                yield return new WaitForSeconds(cooldown);
+                canTeleport = true;
                 break;
         }
     }

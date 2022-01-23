@@ -12566,25 +12566,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoatPlayer
       objectReference: {fileID: 0}
-    - target: {fileID: 3300549556202389563, guid: c082f65eb5a566949abf16c7eda050ab, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 7.7
+    - target: {fileID: 5386439753765257587, guid: c082f65eb5a566949abf16c7eda050ab, type: 3}
+      propertyPath: cooldown
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5386439753765257587, guid: c082f65eb5a566949abf16c7eda050ab, type: 3}
-      propertyPath: skybox0
-      value: 
-      objectReference: {fileID: 2100000, guid: 1eb3122dd82d833438bec661cdc8fa60, type: 2}
-    - target: {fileID: 5386439753765257587, guid: c082f65eb5a566949abf16c7eda050ab, type: 3}
-      propertyPath: skybox1
-      value: 
-      objectReference: {fileID: 2100000, guid: f8a60d169ab8a46b09c9b01a3e51601f, type: 2}
-    - target: {fileID: 5386439753765257587, guid: c082f65eb5a566949abf16c7eda050ab, type: 3}
-      propertyPath: canTeleport
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8603059406730091810, guid: c082f65eb5a566949abf16c7eda050ab, type: 3}
-      propertyPath: m_Name
-      value: PlayerController
+      propertyPath: chargeTime
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c082f65eb5a566949abf16c7eda050ab, type: 3}
