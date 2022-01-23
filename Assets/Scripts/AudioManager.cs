@@ -5,6 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour {
     public AudioClip TrinketOn;
     public AudioClip Transition;
+    public AudioClip ChestOpen;
 
     public void PlayTrinket() {
         StartCoroutine(PlayTrinketWithDelay());
@@ -21,5 +22,11 @@ public class AudioManager : MonoBehaviour {
         GameObject newSound = new GameObject();
         newSound.AddComponent<AudioSource>();
         newSound.GetComponent<AudioSource>().PlayOneShot(Transition);
+    }
+
+    public void PlayChestOpen() {
+        GameObject newSound = new GameObject();
+        newSound.AddComponent<AudioSource>();
+        newSound.GetComponent<AudioSource>().PlayOneShot(ChestOpen);
     }
 }

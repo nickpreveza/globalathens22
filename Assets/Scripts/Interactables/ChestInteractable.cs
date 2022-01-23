@@ -8,7 +8,7 @@ public class ChestInteractable : Interactable
 
     private void Start()
     {
-        chestAnimator = GetComponent<Animator>();        
+        chestAnimator = GetComponent<Animator>();
     }
     public override void Interact()
     {
@@ -38,6 +38,7 @@ public class ChestInteractable : Interactable
     private void SuccessfulInteraction()
     {
         chestAnimator.SetTrigger("Open");
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlayChestOpen();
         GameManager.Instance.playerController.GetComponent<Teleport>().SetTeleportState(true);
     }
 
@@ -52,6 +53,6 @@ public class ChestInteractable : Interactable
         {
             this.gameObject.SetActive(false);
         }
-        
+
     }
 }
