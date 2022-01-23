@@ -38,7 +38,7 @@ public class ChestInteractable : Interactable
     private void SuccessfulInteraction()
     {
         chestAnimator.SetTrigger("Open");
-        GameManager.Instance.playerController.GetComponent<Teleport>().canTeleport = true;
+        GameManager.Instance.playerController.GetComponent<Teleport>().SetTeleportState(true);
     }
 
     public override void OneOffInteract()

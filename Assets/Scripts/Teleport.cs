@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour {
     [SerializeField] FirstPersonMovement controller;
-    public bool canTeleport = true;
+    bool canTeleport = true;
     public GameObject vehicleParent;
     [SerializeField] Animator handsAnimator;
     [SerializeField] float chargeTime;
     [SerializeField] float cooldown;
+    [SerializeField] GameObject trinket;
+    [SerializeField] ParticleSystem teleportEffect;
     void Awake()
     {
         controller = GetComponent<FirstPersonMovement>();
+        SetTeleportState(false);
+        teleportEffect.Stop();
     }
 
+    public void SetTeleportState(bool enabled)
+    {
+        canTeleport = enabled;
+        trinket.SetActive(canTeleport);
+       
+    }
     // Update is called once per frame
     void Update()
     {
@@ -26,6 +36,7 @@ public class Teleport : MonoBehaviour {
     IEnumerator TeleportPlayer()
     {
         canTeleport = false;
+        teleportEffect.Play();
         switch (UniverseController.Instance.currentUniverse)
         {
             case 0:
