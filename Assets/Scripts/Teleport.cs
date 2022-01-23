@@ -22,7 +22,7 @@ public class Teleport : MonoBehaviour {
     {
         canTeleport = enabled;
         trinket.SetActive(canTeleport);
-       
+
     }
     // Update is called once per frame
     void Update()
@@ -35,6 +35,7 @@ public class Teleport : MonoBehaviour {
 
     IEnumerator TeleportPlayer()
     {
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlayTrinket();
         canTeleport = false;
         teleportEffect.Play();
         switch (UniverseController.Instance.currentUniverse)
@@ -42,9 +43,9 @@ public class Teleport : MonoBehaviour {
             case 0:
                 handsAnimator.SetTrigger("ChangeToInu");
                 yield return new WaitForSeconds(chargeTime);
+                GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlayTransition();
                 if (controller.inVechile && vehicleParent != null)
                 {
-
                     vehicleParent.transform.position = new Vector3(vehicleParent.transform.position.x, vehicleParent.transform.position.y, vehicleParent.transform.position.z - UniverseController.Instance.universeDistance);
                 }
                 else
@@ -60,6 +61,7 @@ public class Teleport : MonoBehaviour {
             case 1:
                 handsAnimator.SetTrigger("ChangeToAki");
                 yield return new WaitForSeconds(chargeTime);
+                GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlayTransition();
                 if (controller.inVechile && vehicleParent != null)
                 {
                     GameObject targetGameObject = this.transform.parent.transform.parent.gameObject;

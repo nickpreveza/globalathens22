@@ -71,7 +71,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -3550207769339291536, guid: 488c22d5aa53da84c9a8c173d43a6799, type: 3}
+  m_Motion: {fileID: 3713548973625040100, guid: 488c22d5aa53da84c9a8c173d43a6799, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -91,13 +91,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ChangeToInu
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -118,7 +118,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New State
+  m_Name: Nioy
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -131,7 +131,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 3713548973625040100, guid: 488c22d5aa53da84c9a8c173d43a6799, type: 3}
+  m_Motion: {fileID: -3550207769339291536, guid: 488c22d5aa53da84c9a8c173d43a6799, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -154,7 +154,7 @@ AnimatorStateMachine:
     m_Position: {x: 380, y: 100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1003878101626270013}
-    m_Position: {x: 553.9831, y: 20.593216, z: 0}
+    m_Position: {x: 560, y: 20, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -4423124149528262449}
