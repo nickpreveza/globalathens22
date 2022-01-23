@@ -56,6 +56,7 @@ public class PuzzleCode : MonoBehaviour {
         switch (other.gameObject.name) {
             case "Glyph1Unplugged":
                 Destroy(other.gameObject);
+                GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlayButtonPressed();
                 Glyph1.SetActive(true);
                 GameManager.Instance.playerController.interact.ExitInspectMode();
                 //GameObject.FindWithTag("Player").GetComponent<Interact>().ExitInspectMode();
@@ -63,18 +64,21 @@ public class PuzzleCode : MonoBehaviour {
                 break;
             case "Glyph2Unplugged":
                 Destroy(other.gameObject);
+                GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlayButtonPressed();
                 Glyph2.SetActive(true);
                 GameManager.Instance.playerController.interact.ExitInspectMode();
                 CheckIfPuzzleReady();
                 break;
             case "Glyph3Unplugged":
                 Destroy(other.gameObject);
+                GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlayButtonPressed();
                 Glyph3.SetActive(true);
                 GameManager.Instance.playerController.interact.ExitInspectMode();
                 CheckIfPuzzleReady();
                 break;
             case "Glyph4Unplugged":
                 Destroy(other.gameObject);
+                GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlayButtonPressed();
                 Glyph4.SetActive(true);
                 GameManager.Instance.playerController.interact.ExitInspectMode();
                 CheckIfPuzzleReady();
@@ -132,6 +136,7 @@ public class PuzzleCode : MonoBehaviour {
         Glyph2.transform.position = new Vector3(Glyph2.transform.position.x, Glyph2.transform.position.y - 0.15f, Glyph2.transform.position.z);
         Glyph3.transform.position = new Vector3(Glyph3.transform.position.x, Glyph3.transform.position.y - 0.15f, Glyph3.transform.position.z);
         Glyph4.transform.position = new Vector3(Glyph4.transform.position.x, Glyph4.transform.position.y - 0.15f, Glyph4.transform.position.z);
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlayButtonPressedSolved();
         // Open door.
         interactableToTriggerSolution.TriggerPuzzleSolution();
     }
