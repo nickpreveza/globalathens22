@@ -70,7 +70,7 @@ MonoBehaviour:
     value: 10
   aperture:
     overrideState: 1
-    value: 14.8
+    value: 10
   focalLength:
     overrideState: 1
     value: 300
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb84e30e02715445aeb9959894e3b4d, type: 3}
   m_Name: ColorGrading
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 0
