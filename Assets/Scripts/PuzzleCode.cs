@@ -123,5 +123,6 @@ public class PuzzleCode : MonoBehaviour {
         // Open door.
         interactableToTriggerSolution.TriggerPuzzleSolution();
         UIManager.Instance.OpenPopup("Puzzle Solved");
+        UIManager.Instance.EndingSequence();
     }
 }
