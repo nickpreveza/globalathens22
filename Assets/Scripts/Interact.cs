@@ -21,6 +21,7 @@ public class Interact : MonoBehaviour {
     private Transform _inspectingObjectStartParent;
     private Vector3 _inspectingObjectStartPosition;
     private Quaternion _inspectingObjectStartRotation;
+    private Vector3 _inspectingObjectStartScale;
     private bool isInspecting = false;
     public RectTransform mainCanvasRect;
     public RectTransform crosshairRect;
@@ -55,14 +56,15 @@ public class Interact : MonoBehaviour {
     private bool CheckForInteractable() {
         var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f,0f));
         if (Physics.Raycast(ray, out var hitInfo, MaxDistance)) {
-            if (hitInfo.transform.gameObject.CompareTag("Interactable"))
+            //Debug.Log("Looking at: " + hitInfo.collider.transform.gameObject.name);
+            if (hitInfo.collider.transform.gameObject.CompareTag("Interactable"))
             {
                 // Hit an interactable.
                 crosshairActive.SetActive(true);
 
-                if (_selectedInteractable == null || _selectedInteractable.gameObject != hitInfo.transform.gameObject)
+                if (_selectedInteractable == null || _selectedInteractable.gameObject != hitInfo.collider.transform.gameObject)
                 {
-                    _selectedInteractable = hitInfo.transform.gameObject.GetComponent<Interactable>();
+                    _selectedInteractable = hitInfo.collider.transform.gameObject.GetComponent<Interactable>();
                 }
 
                 cameraToWorld = Camera.main.WorldToViewportPoint(_selectedInteractable.transform.position);
@@ -92,7 +94,7 @@ public class Interact : MonoBehaviour {
     // Pick up.
     private void EnterInspectMode() {
         GetComponent<FirstPersonMovement>().canRun = false;
-        GetComponent<FirstPersonMovement>().speed /= 2;
+       // GetComponent<FirstPersonMovement>().speed /= 2;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         _inspectingObject = _selectedInteractable.gameObject;
@@ -100,6 +102,7 @@ public class Interact : MonoBehaviour {
         _inspectingObjectStartParent = _inspectingObject.transform.parent;
         _inspectingObjectStartPosition = _inspectingObject.transform.position;
         _inspectingObjectStartRotation = _inspectingObject.transform.rotation;
+        _inspectingObjectStartScale = _inspectingObject.transform.localScale;
 
         _inspectingObject.transform.parent = inspectPosition.transform;
         _inspectingObject.transform.position = inspectPosition.transform.position;
@@ -135,12 +138,13 @@ public class Interact : MonoBehaviour {
     }
 
     // Put down.
-    private void ExitInspectMode() {
-        GetComponent<FirstPersonMovement>().speed *= 2;
+    public void ExitInspectMode() {
+        //GetComponent<FirstPersonMovement>().speed *= 2;
         GetComponent<FirstPersonMovement>().canRun = true;
         _inspectingObject.transform.parent = _inspectingObjectStartParent;
         _inspectingObject.transform.position = _inspectingObjectStartPosition;
         _inspectingObject.transform.rotation = _inspectingObjectStartRotation;
+        _inspectingObject.transform.localScale = _inspectingObjectStartScale;
         _inspectingObject = null;
     }
 }

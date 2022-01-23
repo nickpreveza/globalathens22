@@ -30,11 +30,15 @@ public class FirstPersonMovement : MonoBehaviour
     [SerializeField] float vehicleRotateSpeed = 1f;
     [SerializeField] Transform boatPosition;
     [SerializeField] Transform boatDeport;
+
+    public Interact interact;
+
     void Awake()
     {
         Instance = this;
         // Get the rigidbody on this.
         rigidbody = GetComponent<Rigidbody>();
+        interact = GetComponent<Interact>();
     }
 
     void FixedUpdate()

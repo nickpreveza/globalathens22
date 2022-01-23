@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+    public FirstPersonMovement playerController;
     public bool devMode;
     public bool GodMode;
     [SerializeField] Transform lighthouseSpawn;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        Instance = this;
     }
 
     // Update is called once per frame

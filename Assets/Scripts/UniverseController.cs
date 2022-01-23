@@ -9,6 +9,9 @@ public class UniverseController : MonoBehaviour
     [SerializeField] GameObject universe2;
     public float universeDistance;
     public int currentUniverse = 0;
+
+    public Material skybox0;
+    public Material skybox1;
     // Start is called before the first frame update
     void Awake()
     {
