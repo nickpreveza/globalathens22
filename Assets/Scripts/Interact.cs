@@ -56,7 +56,7 @@ public class Interact : MonoBehaviour {
     private bool CheckForInteractable() {
         var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f,0f));
         if (Physics.Raycast(ray, out var hitInfo, MaxDistance)) {
-            Debug.Log("Looking at: " + hitInfo.collider.transform.gameObject.name);
+            //Debug.Log("Looking at: " + hitInfo.collider.transform.gameObject.name);
             if (hitInfo.collider.transform.gameObject.CompareTag("Interactable"))
             {
                 // Hit an interactable.
