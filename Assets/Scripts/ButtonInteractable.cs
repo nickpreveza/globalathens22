@@ -30,6 +30,7 @@ public class ButtonInteractable : Interactable
     }
 
     private void SuccessfulInteraction() {
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlayButtonPressed();
         startPosition = transform.position;
         pressedPosition = new Vector3(transform.position.x, transform.position.y - 0.1f, transform.position.z);
         StartCoroutine(ButtonAnimation());
@@ -40,6 +41,7 @@ public class ButtonInteractable : Interactable
         isInteractable = false;
         transform.position = pressedPosition;
         yield return new WaitForSeconds(0.5f);
+        GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlayButtonUnpressed();
         transform.position = startPosition;
         ResetState();
         isInteractable = true;
